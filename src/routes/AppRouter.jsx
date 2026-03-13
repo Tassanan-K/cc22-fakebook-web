@@ -1,8 +1,22 @@
-import Friends from "@/pages/Friends";
-import Home from "@/pages/Home";
-import Login from "@/pages/Login";
-import Profile from "@/pages/Profile";
+import ShareInfo from "@/pages/ShareInfo";
+import {lazy, Suspense } from "react";
+const Home = lazy( () => import('../pages/Home'))
+const Friends = lazy( () => import('../pages/Friends'))
+const Profile = lazy( () => import('../pages/Profile'))
+const Login = lazy( () => import('../pages/Login'))
 import { createBrowserRouter, Navigate, Outlet, RouterProvider } from "react-router";
+// import Friends from "@/pages/Friends";
+// import Home from "@/pages/Home";
+// import Login from "@/pages/Login";
+// import Profile from "@/pages/Profile";
+
+
+const commonPath = [
+    {
+        path: '/share',
+        Component: ShareInfo
+    }
+]
 
 const guestRouter = createBrowserRouter([
     {
@@ -12,7 +26,8 @@ const guestRouter = createBrowserRouter([
     {
         path: '*',
         element: <Navigate to='/' />
-    }
+    },
+    ...commonPath
 ])
 
 const userRouter = createBrowserRouter([
@@ -37,18 +52,21 @@ const userRouter = createBrowserRouter([
             },
             {
                 path: '*',
-                element: <Navigate to='/' />
-            }
+                element: <Navigate to='/' />,
+            },
+            ...commonPath
         ]
     }
 ])
 
 function AppRouter() {
-    // const user = null //user not login
-    const user = {email: 'andy@ggg.mail'}
+    const user = null //user not login
+    // const user = { email: 'andy@ggg.mail' }
     const finalRouter = user ? userRouter : guestRouter
     return (
-        <RouterProvider router={finalRouter} />
+        <Suspense fallback={<span className="loading loading-dots loading-md"></span>}>
+            <RouterProvider router={finalRouter} />
+        </Suspense>
     )
 }
 
