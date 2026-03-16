@@ -10,6 +10,7 @@ function Login() {
             <div className="text-5xl text-primary font-bold">Fakebook</div>
             <h2 className='text-[30px] leading-8 mt-3 w-128.5 max-md:w-auto'>Fakebook helps you connect and share with the people in your life.</h2>
             <div className="badge badge-outline badge-error max-md:mx-auto">This site is not real facebook</div>
+            <input type="checkbox" value="dark" className="toggle theme-controller max-md:mx-auto" />
           </div>
           <div className='flex-1 '>
             <div className="card bg-base-100 w-full h-87.5 shadow-xl mt-8">
