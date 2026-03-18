@@ -1,4 +1,6 @@
+import UserLayout from "@/layouts/userLayout";
 import ShareInfo from "@/pages/ShareInfo";
+import useUserStore from "@/stores/userStore";
 import {lazy, Suspense } from "react";
 const Home = lazy( () => import('../pages/Home'))
 const Friends = lazy( () => import('../pages/Friends'))
@@ -33,10 +35,7 @@ const guestRouter = createBrowserRouter([
 const userRouter = createBrowserRouter([
     {
         path: '/',
-        element: <>
-            <div className="py-4 border">Header</div>
-            <Outlet />
-        </>,
+        Component: UserLayout,
         children: [
             {
                 index: true,
@@ -60,12 +59,13 @@ const userRouter = createBrowserRouter([
 ])
 
 function AppRouter() {
-    const user = null //user not login
+    // const user = null //user not login
     // const user = { email: 'andy@ggg.mail' }
+    const user = useUserStore(state => state.user)
     const finalRouter = user ? userRouter : guestRouter
     return (
         <Suspense fallback={<span className="loading loading-dots loading-md"></span>}>
-            <RouterProvider router={finalRouter} />
+            <RouterProvider key={user?.id} router={finalRouter} />
         </Suspense>
     )
 }

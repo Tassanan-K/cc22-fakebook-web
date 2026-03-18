@@ -7,8 +7,8 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
 function Login() {
-  const token = useUserStore(state => state.token)
-  const user = useUserStore(state => state.user)
+  // const token = useUserStore(state => state.token)
+  // const user = useUserStore(state => state.user)
   const login = useUserStore(state => state.login)
   const { register, handleSubmit, formState, reset } = useForm({
     resolver: zodResolver(loginSchema),
@@ -21,7 +21,7 @@ function Login() {
     try {
       await new Promise(resolve => setTimeout(resolve, 1000))
       const resp = await login(body)
-      toast.success(resp.data.message)
+      // toast.success(resp.data.message)
       // toast.info(JSON.stringify(body, null, 2))
     } catch (err) {
       console.dir(err)
@@ -36,7 +36,7 @@ function Login() {
         <div className='p-5 max-w-5xl mx-auto min-h-135 flex justify-between max-md:flex-col'>
           <div className='flex flex-col gap-4 mt-20 basis-3/5 max-md:text-center'>
             <div className="text-5xl text-primary font-bold">Fakebook
-              <p className="mx-2">Hello,{user?.firstName}</p>
+              {/* <p className="mx-2">Hello,{user?.firstName}</p> */}
               </div>
             <h2 className='text-[30px] leading-8 mt-3 w-128.5 max-md:w-auto'>Fakebook helps you connect and share with the people in your life.</h2>
             <div className="badge badge-outline badge-error max-md:mx-auto">This site is not real facebook</div>
